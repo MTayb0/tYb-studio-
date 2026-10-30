@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "0.17.0",
+  "generatedAt": "2026-10-28T13:00:35.137Z",
+  "modules": [
+    {
+      "id": "sample-hello",
+      "name": "Module Demo",
+      "version": "1.0.0",
+      "description": "A tiny example showing the TYB Studio module contract and sandboxed loading.",
+      "minAppVersion": "0.1.0",
+      "capabilities": [
+        "ui"
+      ],
+      "entry": "./",
+      "files": [
+        "module.json",
+        "module.html",
+        "module.css",
+        "module.js"
+      ]
+    }
+  ]
+}

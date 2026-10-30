@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11131b">
+  <meta name="description" content="TYB Studio — free creative studio with Tayab, your AI friend.">
+  <title>TYB Studio · Tayab AI Friend</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="TYB Studio home">
+      <span class="brand-mark">T</span>
+      <span><strong>TYB Studio</strong><small>Creative tools, made simple</small></span>
+    </a>
+    <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">☼</button>
+  </header>
+
+  <main class="container">
+    <section id="homeScreen" class="screen active">
+      <div class="hero">
+        <div class="eyebrow">FREE · NO ADS · PRIVACY FIRST</div>
+        <h1>Your creative studio.<br><span>Made for everyone.</span></h1>
+        <p>Edit photos, create social videos, stylize frames, build character concepts, plan storyboards, key solid-color backgrounds, and prepare documents locally. No ads. Your files stay on your device.</p>
+        <div class="hero-actions">
+          <button class="primary" data-open="photoScreen">Open Photo Studio</button>
+          <button class="secondary" data-open="videoScreen">Open Video Studio</button>
+        </div>
+      </div>
+
+      <div class="section-heading"><div><h2>Studio</h2><p>Choose a workspace</p></div></div>
+      <div class="tool-grid">
+        <button class="tool-card" data-open="creatorScreen"><span class="tool-icon purple">✍</span><strong>Creator Command Center</strong><small>Brand kit, captions, hashtags, content planner, batch image optimizer</small></button>
+        <button class="tool-card" data-open="photoScreen"><span class="tool-icon purple">▧</span><strong>Photo Studio</strong><small>Adjust, enhance, export</small></button>
+        <button class="tool-card" data-open="designScreen"><span class="tool-icon purple">✦</span><strong>Advanced Design Studio</strong><small>Editable layers, typography, shapes, templates</small></button>
+        <button class="tool-card" data-open="videoScreen"><span class="tool-icon blue">▶</span><strong>Video Studio</strong><small>Open and preview clips</small></button>
+        <button class="tool-card" data-open="filmScreen"><span class="tool-icon purple">🎬</span><strong>Film & Animation Lab</strong><small>Cartoon filters, comic boards, character concepts, basic keying, measurements, storyboards and voice preview</small><span class="status">New tools</span></button>
+        <button class="tool-card" data-open="timelineScreen"><span class="tool-icon blue">🎞</span><strong>Timeline Pro</strong><small>Multi-track video/audio timeline, layered preview, splits, blend modes, WebM export, .tybproj projects</small><span class="status">New</span></button>
+        <button class="tool-card" data-open="audioScreen"><span class="tool-icon purple">🎙</span><strong>Voice & Subtitles</strong><small>Voice processing with WAV export, speech transcription, SRT/VTT subtitles, burn-in export</small><span class="status">New</span></button>
+        <button class="tool-card" data-open="aiLabScreen"><span class="tool-icon green">✨</span><strong>AI Lab</strong><small>AI rotoscoping, character overlay, 3D virtual set, on-device AI models</small><span class="status">New</span></button>
+        <button class="tool-card" data-open="greenScreenScreen"><span class="tool-icon green">▣</span><strong>Background Studio</strong><small>Color key + manual correction</small><span class="status">Basic tools</span></button>
+        <button class="tool-card" data-open="documentsScreen"><span class="tool-icon orange">▤</span><strong>Scan & PDF</strong><small>Scan cleanup, reorder, annotate, export</small><span class="status">Core tools</span></button>
+      </div>
+
+      <div class="notice"><strong>Privacy-first toolkit</strong><p>Advanced tools load open-source processing libraries when you use them. Some require internet access for the first load and may be limited by your phone browser.</p></div>
+      <button class="tool-card" data-open="tayabScreen"><span class="tool-icon purple">♥</span><strong>Meet Tayab · AI Friend</strong><small>Your creative companion and studio guide</small><span class="status">New</span></button>
+      <button class="tool-card" data-open="proLabScreen"><span class="tool-icon purple">✧</span><strong>Pro Lab & Local AI</strong><small>Model shelf, subtitles, project portability, capability map</small><span class="status">New workspace</span></button>
+      <button class="tool-card" data-open="advancedScreen"><span class="tool-icon orange">✦</span><strong>Advanced Tools</strong><small>PDF editor, OCR, AI, video, backup</small><span class="status">Expanded toolkit</span></button>
+      <div class="section-heading"><div><h2>Modules</h2><p>Installable tools published with this app</p></div><button id="checkUpdates" class="secondary">Check for updates</button></div>
+      <p id="moduleStatus" class="muted" role="status" aria-live="polite">Loading module registry…</p>
+      <div id="moduleList" class="tool-grid module-grid"><p class="muted">Module list will appear here.</p></div>
+      <div class="section-heading"><div><h2>Recent activity</h2><p>Stored on this device</p></div><button id="clearRecent" class="text-btn">Clear</button></div>
+      <div id="recentList" class="recent-list"><p class="muted">Your recent projects will appear here.</p></div>
+    </section>
+
+    <section id="creatorScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Creator Command Center</h1><p>Plan, publish, and prepare assets without leaving TYB Studio</p></div></div>
+      <div class="creator-tool-grid">
+        <article class="content-card creator-tool-card">
+          <h2>My Brand Kit</h2><p class="muted">Saved on this device. Use these details to personalize content drafts.</p>
+          <label>Brand / creator name<input id="brandName" maxlength="80" placeholder="Your brand name"></label>
+          <label>Tagline<input id="brandTagline" maxlength="140" placeholder="What makes you different?"></label>
+          <label>Topic / niche<input id="brandNiche" maxlength="100" placeholder="Food, beauty, gaming, education…"></label>
+          <div class="resize-fields"><label>Primary color<input id="brandPrimary" type="color" value="#8b5cf6"></label><label>Accent color<input id="brandAccent" type="color" value="#2563eb"></label></div>
+          <div class="tool-row"><button id="saveBrandKit" class="primary">Save brand kit</button><button id="exportBrandKit" class="secondary">Export JSON</button></div><p id="brandStatus" class="muted" role="status">Brand kit not loaded yet.</p>
+        </article>
+        <article class="content-card creator-tool-card">
+          <h2>Social Copywriter</h2><p class="muted">Creates editable templates locally; review facts and adapt to your own voice.</p>
+          <label>What is the post about?<textarea id="copyTopic" rows="3" maxlength="500" placeholder="Example: 3 easy ways to improve product photos"></textarea></label>
+          <div class="resize-fields"><label>Platform<select id="copyPlatform"><option value="Instagram">Instagram</option><option value="TikTok">TikTok</option><option value="YouTube Shorts">YouTube Shorts</option><option value="Facebook">Facebook</option><option value="LinkedIn">LinkedIn</option><option value="X">X</option></select></label><label>Tone<select id="copyTone"><option value="friendly">Friendly</option><option value="bold">Bold</option><option value="professional">Professional</option><option value="playful">Playful</option><option value="inspiring">Inspiring</option></select></label></div>
+          <label>Goal<select id="copyGoal"><option value="engage">Get comments / engagement</option><option value="educate">Teach something useful</option><option value="sell">Promote a product or service</option><option value="story">Tell a personal story</option></select></label>
+          <button id="generateCopy" class="primary full-width">Generate caption + hook + hashtags</button>
+          <label>Generated draft<textarea id="copyResult" rows="9" maxlength="6000" placeholder="Your draft appears here…"></textarea></label>
+          <div class="tool-row"><button id="copyDraft" class="secondary">Copy draft</button><button id="downloadDraft" class="secondary">Download .txt</button><button id="addCopyToPlan" class="secondary">Add to planner</button></div><p id="copyStatus" class="muted" role="status">No draft generated.</p>
+        </article>
+        <article class="content-card creator-tool-card creator-wide">
+          <h2>Content Planner</h2><p class="muted">Plan posts locally. Export your schedule as CSV to open in a spreadsheet.</p>
+          <div class="resize-fields"><label>Publish date<input id="planDate" type="date"></label><label>Platform<select id="planPlatform"><option>Instagram</option><option>TikTok</option><option>YouTube Shorts</option><option>Facebook</option><option>LinkedIn</option><option>X</option><option>Other</option></select></label></div>
+          <label>Post idea / title<input id="planTitle" maxlength="180" placeholder="A short title for your post"></label>
+          <div class="resize-fields"><label>Status<select id="planState"><option>Idea</option><option>Drafting</option><option>Ready</option><option>Published</option></select></label><label>Notes<input id="planNotes" maxlength="300" placeholder="CTA, asset needed, reminder…"></label></div>
+          <div class="tool-row"><button id="addPlanItem" class="primary">Add to calendar</button><button id="exportPlanCsv" class="secondary">Export CSV</button></div>
+          <p id="planStatus" class="muted" role="status">No plan items yet.</p><div id="planList" class="creator-plan-list"></div>
+        </article>
+        <article class="content-card creator-tool-card creator-wide">
+          <h2>Batch Image Optimizer</h2><p class="muted">Convert and resize multiple images in your browser. Original files are not changed or uploaded.</p>
+          <label class="secondary file-button">Choose multiple images<input id="batchImages" type="file" accept="image/*" multiple></label>
+          <div class="resize-fields"><label>Maximum long edge (px)<input id="batchMaxEdge" type="number" min="64" max="12000" value="1600"></label><label>Output format<select id="batchFormat"><option value="image/webp">WebP · smaller files</option><option value="image/jpeg">JPEG</option><option value="image/png">PNG · lossless</option></select></label></div>
+          <label class="range-control"><span>Quality <output id="batchQualityOut">82%</output></span><input id="batchQuality" type="range" min="35" max="100" value="82"></label>
+          <div class="tool-row"><button id="runBatchOptimize" class="primary">Optimize selected images</button><button id="clearBatchResults" class="secondary">Clear results</button></div>
+          <p id="batchStatus" class="muted" role="status">Select images to begin. Large batches may use substantial phone memory.</p><div id="batchResults" class="batch-results"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="photoScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Photo Studio</h1><p>Local, non-destructive preview adjustments</p></div></div>
+      <div class="editor-layout">
+        <div class="preview-panel">
+          <div class="preview-toolbar"><span id="photoStatus">No photo selected</span><button id="resetPhoto" class="text-btn">Reset</button></div>
+          <div id="photoPlaceholder" class="empty-preview"><div class="empty-icon">▧</div><h3>Bring your photo to life</h3><p>Choose a photo to start editing.</p><label class="primary file-button">Choose photo<input id="photoInput" type="file" accept="image/*" capture="environment"></label></div>
+          <canvas id="photoCanvas" class="photo-canvas hidden"></canvas>
+          <div id="photoActions" class="preview-actions hidden"><button id="comparePhoto" class="secondary">Hold to compare original</button><label class="secondary">Format <select id="photoExportFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WebP</option></select></label><button id="exportPhoto" class="primary">Export image</button></div>
+          <div id="cropHelp" class="crop-help hidden">Drag on the photo to draw a crop. Drag inside the box to move it, then apply.</div>
+        </div>
+        <aside class="controls-panel">
+          <div class="panel-heading"><h2>Transform</h2><span class="pill">On device</span></div>
+          <div class="tool-row"><button id="rotateLeft" class="secondary">↶ Rotate left</button><button id="rotateRight" class="secondary">Rotate right ↷</button></div>
+          <div class="tool-row"><button id="flipHorizontal" class="secondary">⇆ Flip horizontal</button><button id="flipVertical" class="secondary">⇅ Flip vertical</button></div>
+          <div class="tool-row crop-actions"><button id="startCrop" class="secondary">✂ Crop photo</button><button id="applyCrop" class="primary" disabled>Apply crop</button><button id="cancelCrop" class="text-btn hidden">Cancel</button></div>
+          <div class="resize-box">
+            <h3>Resize image</h3>
+            <div class="resize-fields"><label>Width (px)<input id="resizeWidth" type="number" min="1" max="12000" inputmode="numeric" placeholder="Auto"></label><label>Height (px)<input id="resizeHeight" type="number" min="1" max="12000" inputmode="numeric" placeholder="Auto"></label></div>
+            <label class="check-control"><input id="lockRatio" type="checkbox" checked> Keep aspect ratio</label><p class="resize-note">For memory safety, very large photos are processed at up to 2200 px on the longest side. Upscaling increases dimensions but cannot restore lost detail.</p>
+            <div class="tool-row"><button id="applyResize" class="secondary">Apply resize</button><button id="clearResize" class="text-btn">Original size</button></div>
+          </div>
+          <div class="preset-box"><h3>Quick presets</h3><div class="preset-grid"><button class="preset-btn" data-preset="original">Original</button><button class="preset-btn" data-preset="vivid">Vivid</button><button class="preset-btn" data-preset="warm">Warm</button><button class="preset-btn" data-preset="mono">B&amp;W</button><button class="preset-btn" data-preset="vintage">Vintage</button><button class="preset-btn" data-preset="cool">Cool</button></div><div class="tool-row"><button id="savePreset" class="secondary">Save my preset</button><button id="loadPreset" class="secondary">Load saved preset</button></div></div>
+          <div class="resize-box"><h3>Text / watermark</h3>
+            <label class="range-control"><span>Overlay text</span><input id="photoWatermark" type="text" maxlength="100" placeholder="Your name or watermark"></label>
+            <div class="resize-fields"><label>Text color<input id="watermarkColor" type="color" value="#ffffff"></label><label>Position<select id="watermarkPosition"><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option><option value="top-right">Top right</option><option value="top-left">Top left</option><option value="center">Center</option></select></label></div>
+            <label class="range-control"><span>Opacity <output id="watermarkOpacityOut">75%</output></span><input id="watermarkOpacity" type="range" min="10" max="100" value="75"></label>
+          </div>
+          <div class="panel-heading adjustments-heading"><h2>Adjustments</h2><span class="pill">Live preview</span></div>
+          <div id="adjustments">
+            <label class="range-control"><span>Brightness <output id="brightnessOut">100%</output></span><input type="range" id="brightness" min="0" max="200" value="100"></label>
+            <label class="range-control"><span>Contrast <output id="contrastOut">100%</output></span><input type="range" id="contrast" min="0" max="200" value="100"></label>
+            <label class="range-control"><span>Saturation <output id="saturationOut">100%</output></span><input type="range" id="saturation" min="0" max="200" value="100"></label>
+            <label class="range-control"><span>Warmth <output id="warmthOut">0</output></span><input type="range" id="warmth" min="-50" max="50" value="0"></label>
+            <label class="range-control"><span>Grayscale <output id="grayscaleOut">0%</output></span><input type="range" id="grayscale" min="0" max="100" value="0"></label>
+            <label class="range-control"><span>Blur <output id="blurOut">0px</output></span><input type="range" id="blur" min="0" max="8" value="0" step="0.5"></label>
+          </div>
+          <div class="panel-footer"><p class="muted">Adjustments are previewed locally. Export creates a new PNG; the original file is not overwritten.</p><label class="secondary file-button full-width">Choose another photo<input id="photoInputAlt" type="file" accept="image/*"></label></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="designScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Advanced Design Studio</h1><p>Layer-based canvas design · local editing · editable projects</p></div></div>
+      <div class="design-workspace">
+        <div class="design-stage-panel">
+          <div class="design-topbar"><span id="designSizeLabel">1080 × 1080</span><span class="pill">On device</span><div class="design-top-actions"><button id="designUndo" class="secondary">↶ Undo</button><button id="designRedo" class="secondary">↷ Redo</button></div></div>
+          <div class="design-canvas-wrap"><canvas id="designCanvas" width="1080" height="1080" aria-label="Editable design canvas"></canvas></div>
+          <div class="design-export-row"><button id="designExportPng" class="primary">Export PNG</button><button id="designExportJpg" class="secondary">Export JPG</button><button id="designSaveProject" class="secondary">Save editable project</button><label class="secondary file-button">Open project<input id="designLoadProject" type="file" accept="application/json,.json"></label></div>
+          <p id="designStatus" class="muted" role="status">Create a design. Drag layers on the canvas to move them.</p>
+        </div>
+        <aside class="design-controls content-card">
+          <h2>Start from a template</h2>
+          <select id="designTemplate"><option value="">Choose template…</option><option value="social">Social post</option><option value="sale">Sale / promotion</option><option value="story">Story / announcement</option><option value="quote">Quote card</option></select>
+          <h2>Offline design helper</h2><p class="muted">Describe a design and get a starter layout made locally. This helper is rule-based; it is not a bundled neural image-generation model.</p>
+          <textarea id="designPrompt" rows="3" placeholder="Example: bold sale poster for my shop"></textarea><button id="designPromptRun" class="primary full-width">Create editable layout</button>
+          <h2>Add elements</h2>
+          <label>New text<input id="designTextNew" type="text" value="Your headline" maxlength="180"></label><button id="designAddText" class="secondary full-width">＋ Add text</button>
+          <div class="design-shape-grid"><button id="designAddRect" class="secondary">Rectangle</button><button id="designAddCircle" class="secondary">Circle</button><button id="designAddTriangle" class="secondary">Triangle</button><button id="designAddStar" class="secondary">Star</button><button id="designAddLine" class="secondary">Line</button><label class="secondary file-button">＋ Add image<input id="designImageInput" type="file" accept="image/*"></label></div>
+          <label>Canvas size<select id="designSize"><option value="1080x1080">Square · 1080 × 1080</option><option value="1080x1920">Story / Reel · 1080 × 1920</option><option value="1920x1080">Video / landscape · 1920 × 1080</option><option value="1200x628">Social banner · 1200 × 628</option><option value="2480x3508">A4 portrait · 2480 × 3508</option></select></label>
+          <label>Background color<input id="designBg" type="color" value="#f7f4ff"></label>
+          <h2>Layers</h2><p class="muted">Tap a layer to select it, or drag an element on the canvas.</p><div id="designLayers" class="design-layers"></div>
+          <div class="tool-row"><button id="designUp" class="secondary">Move forward</button><button id="designDown" class="secondary">Move backward</button></div><div class="tool-row"><button id="designDuplicate" class="secondary">Duplicate</button><button id="designDelete" class="secondary">Delete</button></div>
+          <h2>Selected layer</h2><p id="designSelectedName" class="muted">Nothing selected</p>
+          <div class="resize-fields"><label>X<input id="designX" type="number" value="100"></label><label>Y<input id="designY" type="number" value="100"></label><label>Width<input id="designW" type="number" min="1" value="400"></label><label>Height<input id="designH" type="number" min="1" value="160"></label><label>Rotation °<input id="designRotation" type="number" value="0"></label><label>Opacity %<input id="designOpacity" type="number" min="0" max="1" step="0.05" value="1"></label></div>
+          <label>Text content<input id="designText" type="text" maxlength="500"></label><div class="resize-fields"><label>Font<select id="designFont"><option>Arial</option><option>Georgia</option><option>Impact</option><option>Verdana</option><option>Courier New</option><option>Trebuchet MS</option></select></label><label>Alignment<select id="designAlign"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select></label><label>Font size<input id="designFontSize" type="number" min="1" max="600" value="80"></label><label>Font weight<input id="designWeight" type="number" min="100" max="900" step="100" value="700"></label></div>
+          <div class="resize-fields"><label>Fill / text color<input id="designColor" type="color" value="#8b5cf6"></label><label>Outline color<input id="designStroke" type="color" value="#ffffff"></label><label>Outline width<input id="designStrokeWidth" type="number" min="0" max="80" value="0"></label><label>Brush size<input id="designBrushSize" type="number" min="1" max="120" value="12"></label></div>
+          <label>Canvas tool<select id="designTool"><option value="select">Select / move</option><option value="brush">Draw with brush</option></select></label><button id="designApplyProps" class="primary full-width">Apply selected properties</button><button id="designAutoEnhance" class="secondary full-width">Image edit guidance</button>
+        </aside>
+      </div>
+    </section>
+
+    <section id="videoScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Video Studio</h1><p>Video import and preview foundation</p></div></div>
+      <div class="content-card">
+        <label class="primary file-button">Choose video<input id="videoInput" type="file" accept="video/*"></label>
+        <video id="videoPreview" class="video-preview hidden" controls playsinline></video>
+        <div id="videoInfo" class="muted">Select a video to preview it on this device.</div>
+        <div class="video-edit-tools">
+          <h2>Trim & export (WebM)</h2><p class="muted">Set the clip range and record the preview in real time. Export support depends on your browser codec; audio is not included in this basic exporter.</p>
+          <label>Start time (seconds)<input id="videoStart" type="number" min="0" step="0.1" value="0"></label>
+          <label>End time (seconds)<input id="videoEnd" type="number" min="0" step="0.1" value="5"></label>
+          <div class="tool-row"><button id="setVideoStart" class="secondary">Set start to current time</button><button id="setVideoEnd" class="secondary">Set end to current time</button></div>
+          <button id="exportVideoTrim" class="primary" disabled>Export trimmed WebM</button><p id="videoTrimStatus" class="muted" role="status"></p>
+          <div class="creator-studio-panel">
+            <h2>Social Creator Studio</h2>
+            <p class="muted">Make vertical Shorts, Reels, TikTok-style clips, and Snapchat stories. Add your own music track, captions, and safe visual looks. Export is browser-based WebM.</p>
+            <div class="resize-fields">
+              <label>Social format<select id="socialAspect"><option value="portrait">Vertical 9:16 · Reels / TikTok / Shorts / Stories</option><option value="square">Square 1:1 · Feed</option><option value="landscape" selected>Landscape 16:9 · YouTube</option></select></label>
+              <label>Creative look<select id="socialLook"><option value="none">Original</option><option value="vivid">Vivid creator</option><option value="warm">Warm glow</option><option value="mono">Black & white</option><option value="dreamy">Dreamy soft</option><option value="mirror">Mirror selfie</option><option value="toon">Comic-style colors</option></select></label>
+            </div>
+            <label class="file-button secondary">Add background song / audio<input id="socialMusicInput" type="file" accept="audio/*"></label>
+            <audio id="socialMusicPreview" controls class="music-preview hidden"></audio>
+            <div class="resize-fields"><label>Music volume <output id="socialMusicVolumeOut">35%</output><input id="socialMusicVolume" type="range" min="0" max="100" value="35"></label><label>Original video volume <output id="socialOriginalVolumeOut">100%</output><input id="socialOriginalVolume" type="range" min="0" max="100" value="100"></label></div>
+            <label>Caption / sticker text<input id="socialCaption" type="text" maxlength="100" placeholder="Add a hook, title, or emoji ✨"></label>
+            <div class="tool-row"><button id="socialApply" class="secondary">Apply social look</button><button id="socialSaveProject" class="secondary">Save edit settings</button></div>
+            <p id="socialStatus" class="muted" role="status">Choose a video, then choose a format and optional song.</p>
+          </div>
+          <div class="advanced-video-editor">
+            <h2>Advanced clip effects & export</h2><p class="muted">Preview and record the selected time range with visual filters, text overlay, speed and audio where the browser supports it. Export is WebM, not a full multi-track CapCut-style project.</p>
+            <div class="resize-fields"><label>Visual filter<select id="videoFxFilter"><option value="none">Original</option><option value="grayscale(1)">Black & white</option><option value="sepia(.8)">Sepia</option><option value="contrast(1.25) saturate(1.3)">Vivid</option><option value="brightness(1.15) saturate(1.1)">Bright</option><option value="contrast(1.25) brightness(.85)">Cinematic</option><option value="blur(1px)">Soft focus</option></select></label><label>Playback speed<select id="videoFxSpeed"><option value="0.5">0.5× slow</option><option value="0.75">0.75×</option><option value="1" selected>1× normal</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2× fast</option></select></label></div>
+            <label>Text overlay<input id="videoFxText" type="text" maxlength="120" placeholder="Add title or subtitle"></label><div class="resize-fields"><label>Text color<input id="videoFxColor" type="color" value="#ffffff"></label><label>Text size<input id="videoFxSize" type="number" min="12" max="120" value="42"></label></div>
+            <label class="check-control"><input id="videoFxMirror" type="checkbox"> Mirror video</label><label class="check-control"><input id="videoFxMute" type="checkbox"> Mute audio in export</label>
+            <div class="tool-row"><button id="videoFxApplyPreview" class="secondary">Apply to preview</button><button id="videoFxExport" class="primary" disabled>Export effects + audio</button></div><p id="videoFxStatus" class="muted" role="status">Choose a video first. Export is recorded in real time, so keep this tab open.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="filmScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Film & Animation Lab</h1><p>Local-first cartoon looks, storyboard planning, character concepts, frame keying and calibrated image measurements</p></div></div>
+      <div class="notice"><strong>Honest capability note</strong><p>These are working browser-native creative tools. This update adds more local stylization looks and a broader cartoon workflow. Toon filters are image-processing approximations, the character builder creates SVG concepts, measurement uses a known reference in a flat image, and chroma key is basic. True AI rotoscoping, stable 3D character replacement, camera tracking, LiDAR room scans, voice cloning, physics simulation and full animation rendering need dedicated models/engines and are not claimed here.</p></div>
+      <article class="content-card">
+        <h2>1. Toon & frame lab</h2><p class="muted">Load a local photo or video, preview a frame, apply a stylized look and export a still. Use the separate video player to scrub or play.</p>
+        <label class="file-button secondary">Choose photo or video<input id="filmSource" type="file" accept="image/*,video/*"></label>
+        <div class="tool-row"><button id="filmVideoPlay" class="secondary">Play / pause video</button><label class="check-row"><input id="filmLiveToon" type="checkbox"> Live toon filter (experimental)</label></div>
+        <video id="filmVideo" controls playsinline hidden style="width:100%;max-height:320px;border-radius:12px"></video><img id="filmImage" alt="Selected source preview" hidden style="width:100%;max-height:320px;object-fit:contain;border-radius:12px">
+        <div class="film-canvas-wrap"><canvas id="filmCanvas" width="640" height="360" aria-label="Film preview canvas"></canvas></div>
+        <div class="resize-fields"><label>Look<select id="toonMode"><option value="anime">Anime color</option><option value="cel">2D cel shading</option><option value="comic">Comic ink</option><option value="clay">Clay-like posterize</option><option value="sketch">Pencil sketch look</option><option value="oil">Oil-paint posterize</option><option value="lowpoly">Low-poly mosaic look</option><option value="stopmotion">Stop-motion color look</option><option value="mono">Monochrome</option><option value="watercolor">Watercolor tint</option><option value="pixel">Pixel art</option></select></label><label>Strength <output id="toonStrengthOut">55%</output><input id="toonStrength" type="range" min="0" max="100" value="55" oninput="document.getElementById('toonStrengthOut').value=this.value+'%'"></label></div>
+        <label class="check-row"><input id="toonLines" type="checkbox" checked> Add simple ink frame</label>
+        <div class="resize-fields"><label>Cartoon VFX overlay<select id="filmVfxType"><option value="sparkles">Magic sparkles</option><option value="impact">Impact burst</option><option value="speed">Anime speed lines</option><option value="smoke">Smoke puffs</option><option value="hearts">Hearts</option><option value="grain">Retro film grain + date stamp</option></select></label><label>Overlay intensity <output id="filmVfxStrengthOut">50%</output><input id="filmVfxStrength" type="range" min="10" max="100" value="50" oninput="document.getElementById('filmVfxStrengthOut').value=this.value+'%'"></label></div>
+        <div class="tool-row"><button id="filmVfxApply" class="secondary">Add cartoon VFX overlay</button></div>
+        <div class="tool-row"><button id="toonApply" class="primary">Apply toon look</button><button id="toonCapture" class="secondary">Export toon PNG</button><button id="filmExportFrame" class="secondary">Export current frame</button><button id="filmMakeComic" class="secondary">Make 4-panel comic sheet</button></div>
+        <p id="filmStatus" class="muted" role="status">Choose a photo or video to begin.</p>
+      </article>
+      <article class="content-card">
+        <h2>2. Basic green / color key</h2><p class="muted">Remove pixels close to one selected color from the current canvas frame. Transparent PNG export is supported; this is not AI matte extraction.</p>
+        <div class="resize-fields"><label>Key color<input id="filmKeyColor" type="color" value="#00ff00"></label><label>Background fill<select id="filmKeyBg"><option value="transparent">Transparent</option><option value="#ffffff">White</option><option value="#101827">Dark navy</option><option value="#3b82f6">Blue</option><option value="#ffcc66">Warm yellow</option></select></label></div>
+        <label class="range-control"><span>Color tolerance</span><input id="filmKeyTolerance" type="range" min="10" max="180" value="75"></label>
+        <div class="tool-row"><button id="filmKeyApply" class="primary">Apply color key</button><button id="filmKeyExport" class="secondary">Export keyed PNG</button></div><p id="filmKeyStatus" class="muted" role="status">Load media first. Best results use an evenly lit solid-color background.</p>
+      </article>
+      <article class="content-card">
+        <h2>3. Calibrated image measure</h2><p class="muted">For a paused frame or photo, enter the real length of a visible reference, then tap its two endpoints. After calibration, tap any two points to estimate their distance in the same image plane.</p>
+        <label>Known reference length (meters)<input id="measureKnown" type="number" min="0.001" max="10000" step="0.001" value="1"></label>
+        <div class="tool-row"><button id="filmMeasureStart" class="primary">Calibrate using two points</button><button id="filmMeasureClear" class="secondary">Clear measurements</button></div><p id="measureStatus" class="muted" role="status">Load a photo or pause a video frame first. Perspective makes estimates less accurate away from the reference plane.</p>
+      </article>
+      <article class="content-card">
+        <h2>4. Script → storyboard</h2><p class="muted">Turn a premise into five editable shot beats for a short film, episode, comic or vertical short.</p>
+        <label>Story idea<textarea id="filmStoryIdea" rows="3" maxlength="1200" placeholder="A shy robot enters a crowded city to find its creator…"></textarea></label>
+        <div class="resize-fields"><label>Genre<select id="filmGenre"><option>Adventure</option><option>Comedy</option><option>Drama</option><option>Fantasy</option><option>Science fiction</option><option>Horror</option><option>Documentary</option></select></label><label>Cast names<input id="filmCastNames" maxlength="300" placeholder="Hero, friend, rival"></label></div>
+        <div class="tool-row"><button id="filmMakeStoryboard" class="primary">Build storyboard</button><button id="filmExportStoryboard" class="secondary">Export storyboard JSON</button></div><p id="storyStatus" class="muted" role="status">No storyboard yet.</p><div id="filmStoryboard" class="film-storyboard"></div>
+      </article>
+      <article class="content-card">
+        <h2>5. Reusable character concept builder</h2><p class="muted">Build a simple mascot concept and export it as SVG artwork. It can be reused in Design Studio; it is not a rigged character.</p>
+        <div class="resize-fields"><label>Character name<input id="filmCharacterName" maxlength="60" placeholder="Captain Comet"></label><label>Species<select id="filmSpecies"><option>Human</option><option>Cat</option><option>Dog</option><option>Fox</option><option>Robot</option><option>Dragon</option><option>Alien</option></select></label></div>
+        <div class="resize-fields"><label>Skin / base color<input id="filmSkin" type="color" value="#f1bd91"></label><label>Hair / accent<input id="filmHair" type="color" value="#302344"></label><label>Outfit<input id="filmOutfit" type="color" value="#7c3aed"></label></div>
+        <div class="tool-row"><button id="filmCharacterBuild" class="primary">Create character concept</button><button id="filmCharacterExport" class="secondary">Export SVG</button></div><div id="filmCharacterPreview" class="character-preview" aria-label="Character preview"></div><p id="characterStatus" class="muted" role="status">Choose options and create a character.</p>
+      </article>
+      <article class="content-card">
+        <h2>6. Narrator / character voice preview</h2><p class="muted">Uses the device/browser's speech synthesis voices. Available languages and voice quality vary by device; no voice cloning is performed.</p>
+        <label>Text to speak<textarea id="filmVoiceText" rows="2" maxlength="1000" placeholder="The city lights flickered as the hero arrived…"></textarea></label>
+        <div class="resize-fields"><label>Pitch <output id="filmVoicePitchOut">1.2</output><input id="filmVoicePitch" type="range" min="0.5" max="2" step="0.1" value="1.2" oninput="document.getElementById('filmVoicePitchOut').value=this.value"></label><label>Rate <output id="filmVoiceRateOut">1</output><input id="filmVoiceRate" type="range" min="0.6" max="1.5" step="0.1" value="1" oninput="document.getElementById('filmVoiceRateOut').value=this.value"></label></div>
+        <button id="filmVoiceDemo" class="primary">Preview spoken dialogue</button><p id="voiceStatus" class="muted" role="status">Ready to preview a line.</p>
+      </article>
+    </section>
+
+    <section id="greenScreenScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Green Screen Studio</h1><p>Foreground selection and background replacement</p></div></div>
+      <div class="content-card"><h2>Background color key</h2><p class="muted">Best for green/blue screen footage and images with a distinct background. This is chroma-key removal, not AI person segmentation.</p>
+        <label class="primary file-button">Choose image<input id="keyImageInput" type="file" accept="image/*"></label>
+        <canvas id="keyCanvas" class="photo-canvas hidden"></canvas>
+        <div class="resize-fields"><label>Key color<input id="keyColor" type="color" value="#00ff00"></label><label>Tolerance <output id="keyToleranceOut">65</output><input id="keyTolerance" type="range" min="10" max="180" value="65"></label></div>
+        <div class="resize-fields"><label>Replacement background<input id="replaceColor" type="color" value="#ffffff"></label><label>Or choose background image<input id="replaceImageInput" type="file" accept="image/*"></label></div>
+        <div class="tool-row"><button id="keyApply" class="primary" disabled>Apply color key</button><button id="keyExport" class="secondary" disabled>Export PNG</button></div>
+        <h3>Manual correction brush</h3><p class="muted">After applying the key, paint transparent areas or restore pixels with the brush. Brush size is adjustable.</p>
+        <label>Brush size <output id="keyBrushOut">24</output><input id="keyBrushSize" type="range" min="4" max="100" value="24"></label>
+        <div class="tool-row"><button id="keyEraseMode" class="secondary">Brush: remove</button><button id="keyReset" class="secondary">Reset image</button></div>
+        <p id="keyStatus" class="muted" role="status">Choose an image to begin. Multiple subjects can be retained only when their colors differ from the keyed background; automatic subject selection is not included.</p>
+      </div>
+    </section>
+
+    <section id="documentsScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Scan & PDF Studio</h1><p>Office documents and paperwork</p></div></div>
+      <div class="content-card"><div class="large-icon">▤</div><h2>Scan, annotate & PDF</h2><p>Import document photos, reorder pages, rotate or enhance pages, add a signature/stamp overlay, then export a multi-page PDF locally. Use your phone camera to capture pages. This app does not upload your files.</p>
+        <div class="doc-toolbar"><button id="rotateDocLeft" class="secondary">Rotate selected page left</button><button id="rotateDocRight" class="secondary">Rotate selected page right</button></div>
+        <div class="resize-fields"><label>Page enhancement<select id="docEnhance"><option value="none">Original</option><option value="gray">Grayscale</option><option value="contrast">High contrast</option></select></label><label>Overlay text (signature/stamp)<input id="docStampText" type="text" maxlength="80" placeholder="APPROVED / Signature"></label></div>
+        <div class="doc-toolbar"><label class="check-control"><input id="docAddDate" type="checkbox"> Add date stamp</label><label class="check-control"><input id="docAddBorder" type="checkbox"> Add page border</label></div>
+        <div class="doc-toolbar"><label class="primary file-button">Add document images<input id="documentInput" type="file" accept="image/*" multiple capture="environment"></label><button id="clearDocuments" class="secondary">Clear pages</button></div>
+        <p id="documentStatus" class="muted" role="status" aria-live="polite">No pages added yet.</p><div id="documentPages" class="document-pages"><p class="muted">Add one or more images to start a document.</p></div>
+        <div class="doc-toolbar"><button id="exportPdf" class="primary" disabled>Export multi-page PDF</button><button id="tryOcr" class="secondary" disabled>Try device OCR</button></div>
+        <div id="ocrResult" class="ocr-result hidden"><h3>Recognized text</h3><textarea id="ocrText" rows="6" placeholder="Recognized text appears here if this browser supports its TextDetector API."></textarea><button id="copyOcr" class="secondary">Copy text</button></div>
+        <div class="notice"><strong>Current limitations</strong><p>PDF export supports image-based pages. It does not merge arbitrary existing PDFs or edit their embedded text. Perspective correction, reliable offline OCR, signatures/stamps on PDF pages and full PDF viewing are not included yet. OCR depends on browser support for TextDetector and may be unavailable on Android Chrome.</p></div></div>
+    </section>
+
+    <section id="advancedScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Advanced Tools</h1><p>PDF, OCR, AI cutout, video conversion and backup</p></div></div>
+      <div class="content-card advanced-card">
+        <h2>PDF Editor & Merger</h2><p class="muted">Open existing PDFs, merge multiple files, reorder pages, rotate pages, add text annotations and place a signature image. Editing existing embedded text is not supported by PDF standards-based browser libraries.</p>
+        <label class="primary file-button">Choose PDF files<input id="advPdfFiles" type="file" accept="application/pdf,.pdf" multiple></label>
+        <div class="tool-row"><button id="advPdfLoad" class="secondary">Load / preview PDF</button><button id="advPdfMerge" class="primary">Merge and export</button></div>
+        <div class="resize-fields"><label>Page number<input id="advPdfPage" type="number" min="1" value="1"></label><label>Annotation text<input id="advPdfText" type="text" maxlength="300" placeholder="Type annotation"></label></div>
+        <div class="tool-row"><button id="advPdfRotate" class="secondary">Rotate page 90°</button><button id="advPdfAnnotate" class="secondary">Add text annotation</button></div>
+        <div class="resize-fields"><label>Move page from<input id="advPdfMoveFrom" type="number" min="1" value="1"></label><label>Move page to<input id="advPdfMoveTo" type="number" min="1" value="1"></label></div><div class="tool-row"><button id="advPdfMove" class="secondary">Move / reorder page</button><button id="advPdfDelete" class="secondary">Delete selected page</button></div>
+        <div class="resize-fields"><label>Cover area X<input id="advPdfX" type="number" min="0" value="40"></label><label>Cover area Y<input id="advPdfY" type="number" min="0" value="80"></label><label>Area width<input id="advPdfW" type="number" min="1" value="180"></label><label>Area height<input id="advPdfH" type="number" min="1" value="24"></label></div><div class="tool-row"><button id="advPdfReplaceText" class="secondary">Cover area + write replacement</button></div><p class="muted">Text replacement is a visual overlay only, not secure redaction. The original text may remain recoverable from the PDF.</p>
+        <label class="secondary file-button">Add signature image<input id="advPdfSignature" type="file" accept="image/png,image/jpeg"></label>
+        <div class="tool-row"><button id="advPdfSign" class="secondary">Place signature on selected page</button><button id="advPdfSave" class="primary">Export edited PDF</button></div>
+        <div id="advPdfStatus" class="muted" role="status">No PDF loaded. PDF processing libraries load on demand from a CDN.</div><div id="advPdfPreview" class="advanced-preview"></div>
+      </div>
+      <div class="content-card advanced-card">
+        <h2>OCR & Document Perspective</h2><p class="muted">OCR uses Tesseract.js language data downloaded when needed. Perspective correction uses OpenCV.js and requires manually supplied corner coordinates normalized to 0–100%.</p>
+        <label class="primary file-button">Choose scan/photo<input id="advScanImage" type="file" accept="image/*"></label><img id="advScanPreview" class="advanced-image hidden" alt="Scan preview"><div class="tool-row"><button id="advOcrRun" class="primary">Recognize text (OCR)</button><button id="advPerspectiveRun" class="secondary">Correct perspective</button><button id="advAutoDetectRun" class="secondary">Auto-detect page corners</button></div>
+        <div class="resize-fields"><label>Top-left X,Y %<input id="cornerTL" value="5,5"></label><label>Top-right X,Y %<input id="cornerTR" value="95,5"></label><label>Bottom-right X,Y %<input id="cornerBR" value="95,95"></label><label>Bottom-left X,Y %<input id="cornerBL" value="5,95"></label></div>
+        <label>OCR language code<input id="advOcrLanguage" value="eng" placeholder="eng, spa, fra, ara"></label><textarea id="advOcrText" rows="7" placeholder="OCR text will appear here…"></textarea><div class="tool-row"><button id="advOcrCopy" class="secondary">Copy text</button><button id="advOcrTxtExport" class="secondary">Export TXT</button></div><p id="advScanStatus" class="muted" role="status"></p>
+      </div>
+      <div class="content-card advanced-card">
+        <h2>AI Background Cutout</h2><p class="muted">Loads MediaPipe Selfie Segmentation on demand. This model targets people, not arbitrary objects; results vary and internet is required to download the model. Keep the app open while it processes.</p>
+        <label class="primary file-button">Choose portrait<input id="aiCutoutInput" type="file" accept="image/*"></label><canvas id="aiCutoutCanvas" class="photo-canvas hidden"></canvas><div class="resize-fields"><label>Background color<input id="aiBgColor" type="color" value="#ffffff"></label><label>Blur edge <input id="aiEdgeBlur" type="range" min="0" max="12" value="2"></label></div><div class="tool-row"><button id="aiCutoutRun" class="primary">Remove person background</button><button id="aiCutoutExport" class="secondary">Export PNG</button></div><p id="aiCutoutStatus" class="muted" role="status"></p>
+      </div>
+      <div class="content-card advanced-card">
+        <h2>Video Transcoder</h2><p class="muted">Uses FFmpeg.wasm loaded on demand for file-based trim/transcode and audio-preserving operations when the browser supports SharedArrayBuffer and required headers. Large files can exceed mobile memory.</p>
+        <label class="primary file-button">Choose source video<input id="ffmpegInput" type="file" accept="video/*,audio/*"></label><div class="resize-fields"><label>Start (seconds)<input id="ffmpegStart" type="number" min="0" step="0.1" value="0"></label><label>Duration (seconds)<input id="ffmpegDuration" type="number" min="0.1" step="0.1" value="10"></label></div><label>Output format<select id="ffmpegFormat"><option value="mp4">MP4 (H.264/AAC if supported)</option><option value="webm">WebM</option><option value="mp3">MP3 audio</option><option value="wav">WAV audio</option></select></label><div class="tool-row"><button id="ffmpegRun" class="primary">Trim / convert</button><button id="ffmpegCancel" class="secondary">Reset status</button></div><p id="ffmpegStatus" class="muted" role="status"></p>
+      </div>
+      <div class="content-card advanced-card">
+        <h2>Backup, Restore & Cloud Sync Setup</h2><p class="muted">Export/import an encrypted portable backup of TYB settings and recent activity. Optional cloud sync uses your own Firebase project; this avoids shipping private credentials in the app. Media files themselves are not included in settings backups.</p>
+        <div class="resize-fields"><label>Backup passphrase<input id="backupPassphrase" type="password" autocomplete="new-password" placeholder="Use a strong passphrase"></label><label>Firebase config JSON<input id="firebaseConfigInput" type="text" placeholder="Paste Firebase web config JSON"></label></div><div class="tool-row"><button id="backupExport" class="primary">Create encrypted backup</button><label class="secondary file-button">Restore backup<input id="backupImport" type="file" accept="application/json,.json"></label></div>
+        <div class="resize-fields"><label>Email for cloud sign-in<input id="cloudEmail" type="email" autocomplete="email"></label><label>Password<input id="cloudPassword" type="password" autocomplete="current-password"></label></div><div class="tool-row"><button id="cloudCreate" class="secondary">Create account</button><button id="cloudSignIn" class="secondary">Sign in</button><button id="cloudSync" class="primary">Sync settings</button><button id="cloudSignOut" class="text-btn">Sign out</button></div><p id="backupStatus" class="muted" role="status">Local encrypted backup works without an account. Cloud sync requires your Firebase project, enabled Email/Password authentication, Firestore, and suitable security rules.</p>
+      </div>
+    </section>
+
+    <section id="moduleScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1 id="moduleTitle">Module</h1><p id="moduleDescription">A TYB Studio extension</p></div></div>
+      <div id="moduleFrameWrap" class="content-card module-frame-wrap"></div>
+      <p class="muted">Modules run in a restricted iframe. Only install modules from a repository you trust. Browser sandboxing reduces access but is not a guarantee that untrusted code is safe.</p>
+    </section>
+
+
+    <section id="proLabScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Pro Lab & Local AI</h1><p>Local-first utilities and an honest AI capability manager</p></div></div>
+      <div class="notice"><strong>Important: model files are not the same as a running AI engine.</strong><p>This workspace never uploads your media. You can keep model files on-device and track them here, but this package does not bundle image/video generation, speech, or segmentation weights. Those require compatible runtimes and model-specific integration before they can run offline.</p></div>
+      <div class="section-heading"><div><h2>Local model shelf</h2><p>Register model files kept on this device</p></div></div>
+      <div class="content-card">
+        <label class="file-button secondary">Add model files<input id="modelFiles" type="file" multiple accept=".onnx,.tflite,.task,.bin,.gguf,.safetensors,.pt,.pth,.model,.wasm"></label>
+        <p class="muted">Files are registered in this browser only; selecting a model does not execute it. Very large files may be slow to scan.</p>
+        <div id="modelList" class="model-list"><p class="muted">No model files registered.</p></div>
+        <button id="clearModels" class="text-btn">Clear model shelf</button>
+      </div>
+      <div class="section-heading"><div><h2>Subtitle builder</h2><p>Turn a transcript into editable SRT captions locally</p></div></div>
+      <div class="content-card">
+        <label>Transcript (one caption per line)<textarea id="captionText" rows="6" placeholder="Paste one subtitle line per row…"></textarea></label>
+        <div class="resize-fields"><label>Seconds per caption<input id="captionDuration" type="number" min="1" max="30" value="3"></label><label>Start offset (seconds)<input id="captionOffset" type="number" min="0" value="0"></label></div>
+        <div class="tool-row"><button id="makeSrt" class="primary">Generate SRT</button><button id="downloadSrt" class="secondary" disabled>Download .srt</button></div>
+        <p id="captionStatus" class="muted" role="status">No captions generated.</p>
+      </div>
+      <div class="section-heading"><div><h2>AI Builder & Resource Agent</h2><p>Find public models online, stage feature ideas, and generate extension starters</p></div></div>
+      <div class="notice"><strong>Controlled autonomy, not unsafe self-modifying code.</strong><p>The agent can discover public model resources, save feature proposals, and create starter extensions. It does not train itself or silently execute downloaded code. Review and approve code and model licenses before integration; offline use still requires a compatible inference runtime.</p></div>
+      <div class="content-card ai-agent-card">
+        <h3>1. Describe the feature you want</h3>
+        <label>Feature request<textarea id="agentFeatureRequest" rows="3" placeholder="Example: Add a one-tap background remover for product photos"></textarea></label>
+        <div class="resize-fields"><label>Feature area<select id="agentFeatureArea"><option value="image">Image / photo AI</option><option value="speech">Speech / subtitles</option><option value="audio">Audio tools</option><option value="video">Video AI</option><option value="pdf">PDF / documents</option><option value="3d">3D / animation</option><option value="general">General tool</option></select></label><label>Build approach<select id="agentBuildApproach"><option value="offline">Offline-first model</option><option value="hybrid">Online discovery + offline use</option><option value="web">Web-powered tool</option></select></label></div>
+        <div class="tool-row"><button id="agentStageFeature" class="primary">Create feature plan</button><button id="agentGenerateStarter" class="secondary">Generate extension starter</button></div>
+        <p id="agentPlanStatus" class="muted" role="status">No feature plan created yet.</p>
+        <div id="agentPlanResult" class="agent-result hidden"></div>
+        <h3>Staged feature ideas</h3><div id="agentFeatureList" class="agent-list"><p class="muted">No staged feature ideas yet.</p></div>
+      </div>
+      <div class="content-card ai-agent-card">
+        <h3>2. Discover downloadable AI resources</h3>
+        <p class="muted">Searches Hugging Face's public model catalogue. Results link to model pages so you can inspect files, license, size, and runtime requirements before downloading.</p>
+        <div class="resize-fields"><label>Resource type<select id="agentResourceType"><option value="image-segmentation">Background removal / segmentation</option><option value="text-to-image">Image generation / inpainting</option><option value="automatic-speech-recognition">Speech recognition</option><option value="text-to-speech">Text to speech</option><option value="text-to-video">Video generation</option><option value="object-detection">Object tracking / detection</option><option value="text-generation">Local coding assistant</option></select></label><label>Maximum results<select id="agentResourceLimit"><option value="3">3 results</option><option value="5" selected>5 results</option><option value="8">8 results</option></select></label></div>
+        <div class="tool-row"><button id="agentSearchResources" class="primary">Search online resources</button><button id="agentClearResources" class="secondary">Clear results</button></div>
+        <p id="agentResourceStatus" class="muted" role="status">Internet required for discovery. Saved proposals remain available offline.</p>
+        <div id="agentResourceResults" class="agent-list"></div>
+      </div>
+
+      <div class="section-heading"><div><h2>Capability map</h2><p>What's usable now versus what still needs an engine</p></div></div>
+      <div class="content-card">
+        <div class="capability-row"><strong>Image editing</strong><span class="cap-ready">Available</span><p>Canvas-based adjustments, crop/resize, layers and export.</p></div>
+        <div class="capability-row"><strong>PDF / OCR / image segmentation</strong><span class="cap-partial">Partial / library-dependent</span><p>Some tools load libraries on demand and may need internet on first use; secure redaction and complete document reflow are not guaranteed.</p></div>
+        <div class="capability-row"><strong>Image generation / inpainting / object removal</strong><span class="cap-missing">Model integration required</span><p>No compatible generative weights and inference runtime are bundled.</p></div>
+        <div class="capability-row"><strong>Speech recognition / TTS / voice isolation / audio generation</strong><span class="cap-missing">Model integration required</span><p>The subtitle builder formats supplied text; it does not transcribe audio automatically.</p></div>
+        <div class="capability-row"><strong>Video generation / interpolation / tracking</strong><span class="cap-missing">Engine required</span><p>Current browser video tools are limited and not a replacement for a native accelerated editor.</p></div>
+        <div class="capability-row"><strong>2D rigging / 3D modelling / DAW / cloud collaboration</strong><span class="cap-missing">Not included</span><p>These need substantial dedicated engines and, for cloud collaboration, backend services.</p></div>
+      </div>
+      <div class="section-heading"><div><h2>Portable workspace backup</h2><p>Save locally stored project metadata and model shelf</p></div></div>
+      <div class="content-card">
+        <p class="muted">Exports this workspace's registered model metadata and settings. It does not package your source media, installed app code, or model binaries.</p>
+        <button id="exportLabBackup" class="primary">Export Pro Lab backup (.json)</button>
+        <label class="file-button secondary">Import Pro Lab backup<input id="importLabBackup" type="file" accept="application/json,.json"></label>
+        <p id="labBackupStatus" class="muted" role="status">No backup imported.</p>
+      </div>
+    </section>
+
+    <section id="tayabScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Meet Tayab</h1><p>Your AI friend inside TYB Studio</p></div></div>
+      <div class="tayab-hero content-card">
+        <div class="tayab-avatar" aria-hidden="true">T<span>✦</span></div>
+        <div><div class="eyebrow">YOUR CREATIVE COMPANION</div><h2>Hi, I'm Tayab 👋</h2><p>I'm here to help you explore tools, plan edits, and find your way around TYB Studio. Your chat history and saved preferences stay on this device.</p></div>
+      </div>
+      <div class="notice"><strong>Privacy-first growth</strong><p>Tayab can research public AI model listings when you choose Learn online. Online discovery sends only a fixed research category—not your chats, personal files, contacts, preferences, or identity fields. The online provider/network may still observe ordinary connection metadata such as your IP address. Discoveries and growth notes are saved locally. New code and models are reviewed before use; Tayab never executes downloaded code or silently replaces existing tools.</p></div>
+      <div id="tayabGrowthPanel" class="content-card">
+        <div class="eyebrow">TAYAB GROWTH LAB</div><h2>Learn, discover, and grow ✨</h2>
+        <p>Tayab Growth Engine can automatically prepare local feature plans and, if you enable it, check public model metadata when the app opens. Existing tools are preserved. New code is never silently executed.</p>
+        <label for="tayabGrowthTopic">Research area</label>
+        <select id="tayabGrowthTopic"><option value="coding">Local coding assistant</option><option value="image">Image generation & inpainting</option><option value="segmentation">Background & object segmentation</option><option value="speech">Speech recognition & subtitles</option><option value="audio">Text-to-speech & audio</option><option value="video">Video AI</option></select>
+        <div class="tool-row"><button id="tayabLearnOnline" class="primary" type="button">Learn online</button><button id="tayabExportGrowth" class="secondary" type="button">Export growth plan</button></div>
+        <label class="check-row"><input id="tayabAutoResearch" type="checkbox"> Auto-research this category when I open TYB Studio (public model metadata only)</label>
+        <p class="muted">Auto-research runs only while the app is open and online. It does not run continuously in the background.</p>
+        <p id="tayabGrowthStatus" class="muted" role="status">Ready. Online discovery is manual and privacy-limited.</p>
+        <h3>Public discoveries</h3><div id="tayabDiscoveries" class="agent-list"></div>
+        <h3>Add a new idea</h3><label class="sr-only" for="tayabGrowthIdea">Growth idea</label><textarea id="tayabGrowthIdea" rows="2" maxlength="500" placeholder="Example: add offline Arabic speech recognition"></textarea><button id="tayabAddIdea" type="button" class="secondary">Add to growth plan</button>
+        <h3>Growth roadmap</h3><p class="muted">Turn saved ideas into an actionable, privacy-safe development checklist.</p><button id="tayabBuildRoadmap" class="secondary" type="button">Prepare roadmap</button> <button id="tayabExportRoadmap" class="secondary" type="button">Export roadmap</button><div id="tayabRoadmap" class="agent-list"></div>
+        <h3>Growth history</h3><p class="muted">Local log of discoveries and proposals. Existing entries are kept; nothing is automatically deleted.</p><div id="tayabGrowthLog" class="agent-list"></div>
+      </div>
+      <div class="content-card tayab-chat-card">
+        <div class="tayab-video-call content-card">
+          <div class="tayab-chat-top"><div><h2>Video chat with Tayab</h2><p class="muted">Camera preview + animated Tayab companion</p></div><span class="status">Experimental</span></div>
+          <div class="tayab-call-stage"><video id="tayabCameraPreview" autoplay muted playsinline></video><div class="tayab-call-avatar" id="tayabCallAvatar" aria-label="Animated Tayab avatar"><span class="avatar-eyes">● ●</span><span class="avatar-smile">⌣</span><b>T</b></div><div class="tayab-call-caption" id="tayabCallCaption">Hi! I'm Tayab. Start the camera if you'd like.</div></div>
+          <div class="tool-row"><button id="tayabCallStart" class="primary">Start video chat</button><button id="tayabCallStop" class="secondary" disabled>End call</button><button id="tayabCallTalk" class="secondary">Tayab, say hello</button></div>
+          <p id="tayabCallStatus" class="muted" role="status">Camera stays on this device; this is not a cloud video call or generated photorealistic AI video.</p>
+        </div>
+        <div class="tayab-chat-top"><div><h2>Chat with Tayab</h2><p class="muted">Local companion · No account required</p></div><button id="tayabClearChat" class="text-btn">Clear chat</button></div>
+        <div id="tayabMessages" class="tayab-messages" role="log" aria-live="polite" aria-label="Conversation with Tayab"></div>
+        <div class="tayab-quick-prompts"><button class="secondary" data-tayab-prompt="Help me edit a photo">Edit a photo</button><button class="secondary" data-tayab-prompt="Help me make a video">Make a video</button><button class="secondary" data-tayab-prompt="Help me add an AI feature">Build an AI feature</button></div>
+        <form id="tayabChatForm" class="tayab-compose"><label class="sr-only" for="tayabInput">Message Tayab</label><textarea id="tayabInput" rows="2" maxlength="1200" placeholder="Ask me about editing or your studio…"></textarea><div class="tool-row"><button id="tayabVoiceInput" type="button" class="secondary">🎙 Speak</button><button id="tayabSpeakToggle" type="button" class="secondary">🔊 Read replies</button><button type="submit" class="primary">Send</button></div></form>
+        <p id="tayabStatus" class="muted" role="status">Chat is stored locally on this device.</p>
+      </div>
+      <div class="content-card"><h2>What I can help with</h2><ul><li>Find the right Photo, Design, Video, PDF, or Pro Lab workspace.</li><li>Suggest a workflow based on your goal.</li><li>Help plan new features for the AI Builder.</li><li>Remember small preferences locally when you explicitly ask me to remember them.</li></ul></div>
+    </section>
+
+    <section id="aboutScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>About TYB Studio</h1><p>Built with care, made to grow</p></div></div>
+      <div class="content-card about-card">
+        <div class="brand-mark big">T</div><h2>TYB Studio</h2><p>Made with ❤️ by TYB</p>
+        <div class="contact-row"><span>Creator</span><strong>Muhammad Tayab</strong></div>
+        <div class="contact-row"><span>Phone</span><a href="tel:+971509304586">+971 50 930 4586</a></div>
+        <div class="contact-row"><span>Email</span><a href="mailto:tayab.elec@gmail.com">tayab.elec@gmail.com</a></div>
+        <div class="contact-row"><span>Version</span><strong>0.17.0 · Pro Lab</strong></div>
+        <p class="muted">Free to use. No advertisements. This version processes photo adjustments on-device and does not include cloud upload or bundled AI models.</p>
+      </div>
+    </section>
+
+    <section id="timelineScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Timeline Pro</h1><p>Multi-track editing with layered preview and real-time WebM export</p></div></div>
+      <div class="content-card">
+        <div class="tool-row">
+          <label class="primary file-button">Add video<input id="tlAddVideo" type="file" accept="video/*" multiple></label>
+          <label class="secondary file-button">Add audio<input id="tlAddAudio" type="file" accept="audio/*" multiple></label>
+          <button id="tlAddVideoTrack" class="secondary">+ Video track</button>
+          <button id="tlAddAudioTrack" class="secondary">+ Audio track</button>
+        </div>
+        <canvas id="tlPreview" width="960" height="540"></canvas>
+        <div class="tool-row">
+          <button id="tlPlay" class="primary">▶ Play</button>
+          <button id="tlStop" class="secondary">⏹ Stop</button>
+          <input id="tlSeek" type="range" min="0" max="1000" value="0" style="flex:1">
+          <span id="tlTime" class="muted">0.0s / 0.0s</span>
+        </div>
+        <div id="tlTimeline" class="tl-wrap">
+          <div id="tlPlayhead" class="tl-playhead"></div>
+          <div id="tlTracks"></div>
+        </div>
+        <div id="tlClipEditor" class="hidden">
+          <h2 id="tlClipName">Clip</h2>
+          <div class="tool-row">
+            <label>Start (s)<input id="tlClipStart" type="number" min="0" step="0.1"></label>
+            <label>Trim in (s)<input id="tlClipOffset" type="number" min="0" step="0.1"></label>
+            <label>Length (s)<input id="tlClipDur" type="number" disabled></label>
+            <label>Volume<input id="tlClipVol" type="range" min="0" max="2" step="0.05" value="1"></label>
+            <label>Opacity<input id="tlClipOpacity" type="range" min="0" max="1" step="0.05" value="1"></label>
+            <label>Blend<select id="tlClipBlend"><option value="source-over">Normal</option><option value="multiply">Multiply</option><option value="screen">Screen</option><option value="overlay">Overlay</option><option value="lighten">Lighten</option><option value="darken">Darken</option><option value="difference">Difference</option></select></label>
+          </div>
+          <div class="tool-row">
+            <button id="tlClipSplit" class="secondary">Split at playhead</button>
+            <button id="tlClipDelete" class="secondary">Delete clip</button>
+          </div>
+        </div>
+        <div class="tool-row">
+          <button id="tlExport" class="primary">Export WebM (real-time)</button>
+          <button id="tlSaveProject" class="secondary">Save project (.tybproj)</button>
+          <label class="secondary file-button">Load project<input id="tlLoadProject" type="file" accept=".json,application/json"></label>
+          <label class="secondary file-button">Relink media<input id="tlRelink" type="file" multiple></label>
+        </div>
+        <p class="muted">Projects store edit decisions (clip names, timings, levels) — not the media itself. After loading a project, pick the same files again with “Relink media”. Export plays the timeline in real time; keep this tab visible until the playhead reaches the end. WebM export includes mixed audio where the browser supports it.</p>
+        <div id="tlStatus" class="muted"></div>
+      </div>
+    </section>
+
+    <section id="audioScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>Voice & Subtitles</h1><p>Voice processing studio and automatic subtitle pipeline</p></div></div>
+      <div class="content-card">
+        <h2>Voice Studio</h2>
+        <p class="muted">Load audio or record from the mic, adjust speed, pitch and EQ, then export WAV. Speed and pitch are linked by resampling — true formant-preserving voice transplant is not possible inside a browser, and this tool never claims otherwise.</p>
+        <div class="tool-row">
+          <label class="primary file-button">Load audio<input id="vsLoad" type="file" accept="audio/*"></label>
+          <button id="vsRecord" class="secondary">● Record mic</button>
+          <button id="vsPlay" class="secondary">▶ Preview</button>
+          <button id="vsExport" class="primary">Export WAV</button>
+        </div>
+        <div class="tool-row">
+          <label>Speed <span id="vsRateVal" class="muted">100%</span><input id="vsRate" type="range" min="0.5" max="2" step="0.01" value="1"></label>
+          <label>Pitch <span id="vsPitchVal" class="muted">+0</span><input id="vsPitch" type="range" min="-12" max="12" step="1" value="0"></label>
+          <label>Compressor<input id="vsComp" type="checkbox"></label>
+        </div>
+        <div class="tool-row">
+          <label>Low shelf (dB)<input id="vsLow" type="range" min="-20" max="20" step="1" value="0"></label>
+          <label>Mid (dB)<input id="vsMid" type="range" min="-20" max="20" step="1" value="0"></label>
+          <label>High shelf (dB)<input id="vsHigh" type="range" min="-20" max="20" step="1" value="0"></label>
+        </div>
+        <div id="vsStatus" class="muted"></div>
+      </div>
+      <div class="content-card">
+        <h2>Subtitle Studio</h2>
+        <p class="muted">Transcribe with the browser speech engine (Chrome/Edge with internet — timings are approximate and fully editable), or type cues manually. Export SRT/VTT, or burn subtitles into a new WebM video.</p>
+        <div class="tool-row">
+          <label class="primary file-button">Load video<input id="subLoad" type="file" accept="video/*"></label>
+          <label>Language<input id="subLang" type="text" value="en-US"></label>
+          <button id="subTranscribe" class="secondary" disabled>Transcribe with speech</button>
+          <button id="subAddCue" class="secondary">Add cue at playhead</button>
+        </div>
+        <video id="subVideo" class="video-preview hidden" controls playsinline></video>
+        <div id="subCues"></div>
+        <div class="tool-row">
+          <button id="subExportSrt" class="secondary" disabled>Download SRT</button>
+          <button id="subExportVtt" class="secondary" disabled>Download VTT</button>
+        </div>
+        <div class="tool-row">
+          <label>Text size<input id="subSize" type="number" min="12" max="72" value="28"></label>
+          <label>Color<input id="subColor" type="color" value="#ffffff"></label>
+          <label>Position<select id="subPos"><option value="bottom">Bottom</option><option value="top">Top</option></select></label>
+          <button id="subBurn" class="primary" disabled>Export with burned-in subtitles (WebM)</button>
+        </div>
+        <canvas id="subBurnCanvas" width="960" height="540"></canvas>
+        <div id="subBurnTime" class="muted"></div>
+        <div id="subStatus" class="muted"></div>
+      </div>
+    </section>
+
+    <section id="aiLabScreen" class="screen">
+      <div class="screen-title"><button class="back-btn" data-open="homeScreen">← Home</button><div><h1>AI Lab</h1><p>AI rotoscoping, character overlay, 3D virtual sets and on-device AI</p></div></div>
+      <div class="content-card">
+        <h2>AI Rotoscope</h2>
+        <p class="muted">Automatic subject matte using MediaPipe segmentation — a true step above color keying for people. Loads a small model on first use, then runs locally.</p>
+        <div class="tool-row">
+          <label class="primary file-button">Load photo / video<input id="rotLoad" type="file" accept="image/*,video/*"></label>
+          <label>Background<select id="rotBgMode"><option value="color">Color</option><option value="image">Image</option></select></label>
+          <label>Color<input id="rotBgColor" type="color" value="#22c55e"></label>
+          <label class="secondary file-button">Background image<input id="rotBgImage" type="file" accept="image/*"></label>
+        </div>
+        <div class="tool-row">
+          <button id="rotProcess" class="primary" disabled>Segment frame</button>
+          <button id="rotLoop" class="secondary">Play live matte (video)</button>
+          <button id="rotStopLoop" class="secondary">Stop preview</button>
+          <button id="rotExportFrame" class="secondary">Export PNG frame</button>
+          <button id="rotExport" class="secondary" disabled>Export roto video (WebM)</button>
+        </div>
+        <canvas id="rotCanvas" width="960" height="540"></canvas>
+        <div id="rotStatus" class="muted"></div>
+      </div>
+      <div class="content-card">
+        <h2>AI Character</h2>
+        <p class="muted">A cartoon, robot or animal avatar driven by your real facial movement (head position + jaw). This is a live avatar overlay, not a full human-to-character performance replacement.</p>
+        <div class="tool-row">
+          <label>Character<select id="chrStyle"><option value="cartoon">Cartoon</option><option value="robot">Robot</option><option value="animal">Animal</option></select></label>
+          <button id="chrStart" class="primary">Start camera</button>
+          <button id="chrStop" class="secondary" disabled>Stop</button>
+          <button id="chrExport" class="secondary">Record 8s overlay (WebM)</button>
+        </div>
+        <video id="chrVideo" class="video-preview hidden" playsinline muted></video>
+        <canvas id="chrCanvas" width="640" height="480"></canvas>
+        <div id="chrStatus" class="muted"></div>
+      </div>
+      <div class="content-card">
+        <h2>3D Virtual Set</h2>
+        <p class="muted">A simple WebGL studio set with preset camera moves (dolly, orbit, crane, wide). Loads three.js on first use (~600 KB). This is a lightweight virtual set — not an Unreal/Blender-class production engine.</p>
+        <div class="tool-row">
+          <button id="setBuild" class="primary">Build virtual set</button>
+          <label class="secondary file-button">Image/video on screen<input id="setMedia" type="file" accept="image/*,video/*"></label>
+          <select id="setMoveSel"><option value="dolly">Dolly in</option><option value="orbit">Orbit</option><option value="crane">Crane up</option><option value="wide">Wide</option></select>
+          <button id="setMove" class="secondary" disabled>Move camera</button>
+          <button id="setExport" class="secondary" disabled">Export 6s clip (WebM)</button>
+        </div>
+        <canvas id="setCanvas" width="640" height="360"></canvas>
+        <div id="setStatus" class="muted"></div>
+      </div>
+      <div class="content-card">
+        <h2>Local AI</h2>
+        <p class="muted">On-device models via transformers.js — nothing is uploaded. First use downloads the model once (background removal ~45 MB, captioning ~90 MB), then it is cached. Desktop-class browsers with ~1 GB free memory recommended; full offline text-to-image suites exceed mobile limits.</p>
+        <div class="tool-row">
+          <label class="primary file-button">Choose image<input id="genImage" type="file" accept="image/*"></label>
+          <button id="genRemoveBg" class="secondary">Remove background (local model)</button>
+          <button id="genCaption" class="secondary">Describe image (local model)</button>
+          <button id="genSave" class="secondary" disabled>Save PNG</button>
+        </div>
+        <canvas id="genCanvas" width="960" height="540"></canvas>
+        <textarea id="genText" rows="2" placeholder="Local caption appears here…" readonly></textarea>
+        <div id="genStatus" class="muted"></div>
+      </div>
+      <div class="content-card">
+        <h2>Platform honesty</h2>
+        <p class="muted">These capabilities are <strong>not</strong> available inside a browser app and TYB Studio does not pretend to offer them: LiDAR room scanning (ARKit/ARCore are not exposed to web apps), production-grade real-time camera tracking, Unreal/Blender-class 3D production engines, and true voice transplant/formant control. Where a partial exists, it is labeled as such above.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <button class="nav-item active" data-open="homeScreen"><span>⌂</span>Home</button>
+    <button class="nav-item" data-open="photoScreen"><span>▧</span>Photo</button>
+    <button class="nav-item" data-open="designScreen"><span>✦</span>Design</button>
+    <button class="nav-item" data-open="videoScreen"><span>▶</span>Video</button>
+    <button class="nav-item" data-open="documentsScreen"><span>▤</span>Docs</button>
+    <button class="nav-item" data-open="tayabScreen"><span>♥</span>Tayab</button>
+    <button class="nav-item" data-open="advancedScreen"><span>✦</span>More</button>
+    <button class="nav-item" data-open="aboutScreen"><span>ⓘ</span>About</button>
+  </nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+  <script src="./creator-tools.js"></script>
+  <script src="./studio-tools.js"></script>
+  <script src="./module-loader.js"></script>
+  <script src="./advanced-tools.js"></script>
+  <script src="./creative-studio.js"></script>
+  <script src="./video-editor.js"></script>
+  <script src="./social-creator.js"></script>
+  <script src="./film-studio.js"></script>
+  <script src="./timeline-pro.js"></script>
+  <script src="./audio-lab.js"></script>
+  <script src="./ai-lab.js"></script>
+  <script src="./tayab-video-call.js"></script>
+  <script src="./pro-lab.js"></script>
+  <script src="./ai-builder.js"></script>
+  <script src="./tayab.js"></script>
+  <script src="./tayab-growth.js"></script>
+</body>
+</html>
