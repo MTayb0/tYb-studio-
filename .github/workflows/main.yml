@@ -1,0 +1,71 @@
+name: Deploy TYB Studio to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Build module registry
+        run: |
+          node scripts/build-registry.mjs
+          node scripts/test-registry.mjs
+          node scripts/test-photo-editor.mjs
+          node --check creator-tools.js
+          node scripts/test-creator-tools.mjs
+          node --check studio-tools.js
+          node scripts/test-expanded-tools.mjs
+          node scripts/test-advanced-tools.mjs
+          node --check advanced-tools.js
+          node --check creative-studio.js
+          node --check video-editor.js
+          node --check pro-lab.js
+          node --check ai-builder.js
+          node --check tayab.js
+          node --check tayab-growth.js
+          node --check social-creator.js
+          node --check film-studio.js
+          node scripts/test-film-studio.mjs
+          node --check tayab-video-call.js
+          node scripts/test-tayab-growth.mjs
+          node scripts/test-social-creator.mjs
+          node scripts/test-tayab.mjs
+          node scripts/test-ai-builder.mjs
+          node scripts/test-creative-studio.mjs
+      - name: Prepare static site
+        run: |
+          mkdir -p dist
+          cp index.html styles.css app.js creator-tools.js advanced-tools.js creative-studio.js video-editor.js social-creator.js film-studio.js tayab-video-call.js studio-tools.js pro-lab.js ai-builder.js tayab.js tayab-growth.js module-loader.js manifest.webmanifest service-worker.js module-registry.json timeline-pro.js audio-lab.js ai-lab.js dist/
+          cp -r modules dist/
+          cp icon-192.png icon-512.png dist/
+          touch dist/.nojekyll
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

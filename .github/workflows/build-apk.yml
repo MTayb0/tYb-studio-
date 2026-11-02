@@ -1,0 +1,125 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - 'index.html'
+      - 'styles.css'
+      - 'app.js'
+      - 'creator-tools.js'
+      - 'advanced-tools.js'
+      - 'creative-studio.js'
+      - 'video-editor.js'
+      - 'film-studio.js'
+      - 'timeline-pro.js'
+      - 'audio-lab.js'
+      - 'ai-lab.js'
+      - 'studio-tools.js'
+      - 'pro-lab.js'
+      - 'ai-builder.js'
+      - 'tayab.js'
+      - 'tayab-growth.js'
+      - 'social-creator.js'
+      - 'tayab-video-call.js'
+      - 'module-loader.js'
+      - 'modules/**'
+      - 'scripts/**'
+      - 'module-registry.json'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
+      - 'android/**'
+      - '.github/workflows/build-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TYB_KEYSTORE_BASE64: ${{ secrets.TYB_KEYSTORE_BASE64 }}
+      TYB_KEYSTORE_PASSWORD: ${{ secrets.TYB_KEYSTORE_PASSWORD }}
+      TYB_KEY_ALIAS: ${{ secrets.TYB_KEY_ALIAS }}
+      TYB_KEY_PASSWORD: ${{ secrets.TYB_KEY_PASSWORD }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Gradle 8.9
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt/gradle
+          echo '/opt/gradle/gradle-8.9/bin' >> "$GITHUB_PATH"
+
+      - name: Build module registry
+        run: |
+          node scripts/build-registry.mjs
+          node scripts/test-registry.mjs
+          node scripts/test-ai-builder.mjs
+          node --check pro-lab.js
+          node --check ai-builder.js
+          node --check tayab.js
+          node --check tayab-growth.js
+          node --check social-creator.js
+          node --check film-studio.js
+          node scripts/test-film-studio.mjs
+          node --check tayab-video-call.js
+          node --check timeline-pro.js
+          node --check audio-lab.js
+          node --check ai-lab.js
+          node scripts/test-tayab-growth.mjs
+          node scripts/test-social-creator.mjs
+          node scripts/test-tayab.mjs
+          node scripts/test-photo-editor.mjs
+          node --check creator-tools.js
+          node scripts/test-creator-tools.mjs
+          node --check studio-tools.js
+          node scripts/test-expanded-tools.mjs
+          node scripts/test-advanced-tools.mjs
+          node --check advanced-tools.js
+          node --check creative-studio.js
+          node --check video-editor.js
+          node scripts/test-creative-studio.mjs
+
+      - name: Copy web app into Android assets
+        run: |
+          mkdir -p android/app/src/main/assets/www
+          cp index.html styles.css app.js creator-tools.js advanced-tools.js creative-studio.js video-editor.js social-creator.js film-studio.js tayab-video-call.js studio-tools.js pro-lab.js ai-builder.js tayab.js tayab-growth.js module-loader.js manifest.webmanifest service-worker.js module-registry.json timeline-pro.js audio-lab.js ai-lab.js android/app/src/main/assets/www/
+          cp icon-192.png icon-512.png android/app/src/main/assets/www/
+          if [ -d modules ]; then cp -r modules android/app/src/main/assets/www/; fi
+
+      - name: Build debug APK
+        working-directory: android
+        run: gradle --no-daemon assembleDebug
+
+      - name: Build signed release APK when signing secrets are configured
+        if: ${{ env.TYB_KEYSTORE_BASE64 != '' && env.TYB_KEYSTORE_PASSWORD != '' && env.TYB_KEY_ALIAS != '' && env.TYB_KEY_PASSWORD != '' }}
+        run: |
+          echo "$TYB_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/tyb-release.keystore"
+          echo "TYB_KEYSTORE_FILE=$RUNNER_TEMP/tyb-release.keystore" >> "$GITHUB_ENV"
+          cd android && gradle --no-daemon assembleRelease
+
+      - name: Upload signed release APK when available
+        if: ${{ env.TYB_KEYSTORE_BASE64 != '' && env.TYB_KEYSTORE_PASSWORD != '' && env.TYB_KEY_ALIAS != '' && env.TYB_KEY_PASSWORD != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: tyb-studio-release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tyb-studio-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
