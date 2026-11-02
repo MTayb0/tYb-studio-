@@ -20,7 +20,7 @@ assert.match(js,/credentials:'omit'/);
 assert.match(js,/tyb-tayab-growth-settings-v1/);
 assert.match(html,/id="tayabBuildRoadmap"/);
 assert.match(html,/id="tayabAutoResearch"/);
-assert.match(sw,/tyb-studio-shell-v16/);
+assert.match(sw,/tyb-studio-shell-v17/);
 assert.match(sw,/\.\/tayab-growth\.js/);
 assert.match(main,/node scripts\/test-tayab-growth\.mjs/);
 assert.match(apk,/node scripts\/test-tayab-growth\.mjs/);

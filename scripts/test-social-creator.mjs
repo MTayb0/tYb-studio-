@@ -15,7 +15,7 @@ assert.match(js,/localStorage\.setItem/);
 assert.match(call,/getUserMedia/);
 assert.match(call,/speechSynthesis/);
 assert.match(call,/No camera frames are uploaded/);
-assert.match(sw,/tyb-studio-shell-v16/);
+assert.match(sw,/tyb-studio-shell-v17/);
 assert.match(sw,/social-creator\.js/);
 assert.match(sw,/tayab-video-call\.js/);
 assert.match(main,/node --check social-creator\.js/);
