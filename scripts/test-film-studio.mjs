@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const html=fs.readFileSync('index.html','utf8');
+const js=fs.readFileSync('film-studio.js','utf8');
+const sw=fs.readFileSync('service-worker.js','utf8');
+const build=fs.readFileSync('.github/workflows/build-apk.yml','utf8');
+for(const id of ['filmScreen','filmSource','filmCanvas','toonApply','filmMakeComic','filmKeyApply','filmMeasureStart','filmMakeStoryboard','filmCharacterBuild','filmVoiceDemo','filmVfxApply']) assert.ok(html.includes(`id="${id}"`),`missing UI element ${id}`);
+for(const marker of ['getImageData','canvas.toBlob','filmStoryboard','image/svg+xml','speechSynthesis','measureMode','filmKeyTolerance','filmVfxType']) assert.ok(js.includes(marker),`missing functionality ${marker}`);
+assert.ok(html.includes('./film-studio.js'),'film studio script not loaded');
+assert.ok(sw.includes("'./film-studio.js'"),'film studio script not cached');
+assert.ok(build.includes('film-studio.js'),'Android build does not copy film studio script');
+assert.ok(build.includes('test-film-studio.mjs'),'Android CI does not test film studio');
+console.log('Film & Animation Lab source checks passed.');

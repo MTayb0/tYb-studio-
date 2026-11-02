@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const html = fs.readFileSync('index.html','utf8');
+const js = fs.readFileSync('creator-tools.js','utf8');
+const sw = fs.readFileSync('service-worker.js','utf8');
+const build = fs.readFileSync('.github/workflows/build-apk.yml','utf8');
+for (const id of ['creatorScreen','saveBrandKit','generateCopy','addPlanItem','exportPlanCsv','runBatchOptimize','batchImages','batchResults']) assert.ok(html.includes(`id="${id}"`), `missing UI control ${id}`);
+for (const marker of ['tyb-creator-brand-v1','tyb-creator-plan-v1','canvas.toBlob','image/jpeg','text/csv;charset=utf-8','downloadDraft']) assert.ok(js.includes(marker), `missing feature marker ${marker}`);
+assert.ok(html.includes('./creator-tools.js'), 'script not loaded');
+assert.ok(sw.includes("'./creator-tools.js'"), 'script not cached');
+assert.ok(build.includes('creator-tools.js'), 'Android build does not copy new script');
+console.log('Creator Command Center source checks passed.');
