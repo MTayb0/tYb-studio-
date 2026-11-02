@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.tyb.studio'
+    compileSdk 35
+
+    signingConfigs {
+        release {
+            if (System.getenv('TYB_KEYSTORE_FILE')) {
+                storeFile file(System.getenv('TYB_KEYSTORE_FILE'))
+                storePassword System.getenv('TYB_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('TYB_KEY_ALIAS')
+                keyPassword System.getenv('TYB_KEY_PASSWORD')
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId 'com.tyb.studio'
+        minSdk 23
+        targetSdk 35
+        versionCode 13
+        versionName '0.16.0'
+    }
+    buildTypes {
+        release {
+            if (System.getenv('TYB_KEYSTORE_FILE')) signingConfig signingConfigs.release
+            else signingConfig signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.12.1'
+}
