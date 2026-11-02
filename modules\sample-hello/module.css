@@ -1,8 +1,0 @@
-:root { color-scheme: dark; font-family: system-ui, sans-serif; color: #f4f5fb; }
-body { margin: 0; padding: 16px; background: #191c28; }
-.module-card { max-width: 700px; }
-h2 { margin-top: 0; font-size: 1.15rem; }
-p { color: #c1c6d8; line-height: 1.55; }
-input, button { font: inherit; padding: 10px 12px; border-radius: 9px; margin: 5px 6px 5px 0; }
-input { width: min(100%, 300px); color: #f4f5fb; background: #10121a; border: 1px solid #454b61; }
-button { border: 0; color: #191326; background: #b9a4ff; font-weight: 700; cursor: pointer; }

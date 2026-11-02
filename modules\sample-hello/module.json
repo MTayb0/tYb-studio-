@@ -1,8 +1,0 @@
-{
-  "id": "sample-hello",
-  "name": "Module Demo",
-  "version": "1.0.0",
-  "minAppVersion": "0.1.0",
-  "description": "A tiny example showing the TYB Studio module contract and sandboxed loading.",
-  "capabilities": ["ui"]
-}
